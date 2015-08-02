@@ -5,12 +5,14 @@ import sys
 to_do_dct = {}
 number = 0
 
+TODOFILE = '/home/elise/Dropbox/to_do'
+
 def create_todo_file():
     # create TODO file if one does not already exist
     flags = os.O_CREAT | os.O_EXCL | os.O_WRONLY
 
     try:
-        os.open('to_do', flags)
+        os.open(TODOFILE, flags)
     except OSError as e:
         if e.errno == errno.EEXIST:  # Failed as the file already exists.
             pass
@@ -22,7 +24,7 @@ def create_todo_file():
 def read_file_to_dict():
     global to_do_dct
     # if no file exits print error and exit
-    with open('to_do', "r") as f:
+    with open(TODOFILE, "r") as f:
         for line in f:
             #print line,
             l = line.split(':')
@@ -43,7 +45,7 @@ def find_num():
     return number
 
 def write_dict_to_file():
-    with open('to_do', "w") as f:
+    with open(TODOFILE,  "w") as f:
         for k, v in to_do_dct.items():
             l = "{0}: {1}\n".format(k, v)
             f.write(l)
@@ -69,7 +71,7 @@ if 'add' in sys.argv:
     write_dict_to_file()
 
 if 'print' in sys.argv:
-    with open('to_do', 'r') as f:
+    with open(TODOFILE, 'r') as f:
         for line in f:
             print line,
 
