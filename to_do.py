@@ -70,7 +70,7 @@ if 'add' in sys.argv:
     update_dict()
     write_dict_to_file()
 
-if 'print' in sys.argv:
+if len(sys.argv) == 1:
     with open(TODOFILE, 'r') as f:
         for line in f:
             print line,
